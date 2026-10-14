@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="A special birthday surprise for my best friend — a digital journey of friendship, memories, and gratitude.">
+  <title>Happy Birthday, Bestie! 🎂💜</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (birthday emoji) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+
+  <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+
+  <!-- ========== BACKGROUND LAYERS ========== -->
+  <div id="bg-gradient" class="bg-layer"></div>
+  <div id="bg-particles" class="bg-layer" aria-hidden="true"></div>
+  <div id="bg-stars" class="bg-layer" aria-hidden="true"></div>
+  <div id="bg-butterflies" class="bg-layer" aria-hidden="true"></div>
+  <div id="confetti-container" class="bg-layer" aria-hidden="true"></div>
+
+  <!-- ========== PROGRESS DOTS ========== -->
+  <nav id="progress-dots" class="progress-dots" aria-label="Section navigation">
+    <button class="dot active" data-screen="0" aria-label="Countdown"></button>
+    <button class="dot" data-screen="1" aria-label="Introduction"></button>
+    <button class="dot" data-screen="2" aria-label="Butterflies"></button>
+    <button class="dot" data-screen="3" aria-label="Memories"></button>
+    <button class="dot" data-screen="4" aria-label="Appreciation"></button>
+    <button class="dot" data-screen="5" aria-label="Fun Facts"></button>
+    <button class="dot" data-screen="6" aria-label="Birthday Wishes"></button>
+    <button class="dot" data-screen="7" aria-label="Personal Message"></button>
+    <button class="dot" data-screen="8" aria-label="Final Message"></button>
+    <button class="dot" data-screen="9" aria-label="The End"></button>
+  </nav>
+
+  <!-- ========== MUSIC CONTROL ========== -->
+  <div id="music-control" class="music-control" style="display:none;">
+    <button id="music-toggle" class="music-btn" aria-label="Toggle music">
+      <span class="music-icon">🎵</span>
+    </button>
+    <div class="volume-slider-wrap">
+      <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="50" aria-label="Volume">
+    </div>
+  </div>
+
+  <!-- ==========================================
+       SCREEN 0 — COUNTDOWN
+  =========================================== -->
+  <section id="screen-countdown" class="screen active" data-index="0">
+    <div class="screen-content">
+      <p class="countdown-subtitle fade-in-up" id="countdown-waiting-text">
+        Waiting for the perfect moment to celebrate you... ✨
+      </p>
+      <div class="countdown-timer" id="countdown-display">
+        <span class="countdown-digit" id="cd-hours">00</span>
+        <span class="countdown-sep">:</span>
+        <span class="countdown-digit" id="cd-minutes">00</span>
+        <span class="countdown-sep">:</span>
+        <span class="countdown-digit" id="cd-seconds">00</span>
+      </div>
+      <p class="countdown-below fade-in-up" id="countdown-below-text">
+        Just a few more seconds... 🎂
+      </p>
+      <button class="btn btn-secondary skip-btn" id="skip-countdown">
+        Skip to the surprise ✨
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 1 — BEST FRIEND INTRODUCTION
+  =========================================== -->
+  <section id="screen-intro" class="screen" data-index="1">
+    <div class="screen-content">
+      <h1 class="intro-heading dancing-text fade-in-up" id="intro-greeting"></h1>
+      <p class="intro-subtext fade-in-up delay-1" id="intro-subtext"></p>
+      <div class="intro-buttons fade-in-up delay-2">
+        <button class="btn btn-primary" id="btn-yes">Of course I do 😌</button>
+        <button class="btn btn-secondary" id="btn-maybe">Maybe... 👀</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 2 — BUTTERFLY CATCHING
+  =========================================== -->
+  <section id="screen-butterflies" class="screen" data-index="2">
+    <div class="screen-content butterfly-screen">
+      <div class="glass-card butterfly-header">
+        <h2 class="dancing-text">Catch the butterflies 🦋</h2>
+        <p>Because today isn't just another day...<br>
+        it's the day my favorite crazy person was born.</p>
+        <p class="butterfly-counter" id="butterfly-counter">Caught: 0/0 🦋</p>
+      </div>
+      <div id="butterfly-playground" class="butterfly-playground"></div>
+      <!-- Popup for caught butterfly message -->
+      <div id="butterfly-popup" class="butterfly-popup hidden">
+        <div class="glass-card popup-card">
+          <p id="butterfly-message" class="butterfly-msg"></p>
+          <button class="btn btn-secondary popup-close" id="close-popup">Got it! 💜</button>
+        </div>
+      </div>
+      <button class="btn btn-primary continue-btn" id="butterfly-continue" style="display:none;">
+        Continue the journey ➡️
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 3 — MEMORIES
+  =========================================== -->
+  <section id="screen-memories" class="screen" data-index="3">
+    <div class="screen-content">
+      <h2 class="dancing-text section-heading fade-in-up" id="memories-heading">Your Beautiful Memories 🥹</h2>
+      <div class="memory-grid" id="memory-grid">
+        <!-- Memory cards injected by JS -->
+      </div>
+      <button class="btn btn-primary continue-btn fade-in-up" id="memories-continue">
+        So many memories... ➡️
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 4 — APPRECIATION (TYPEWRITER)
+  =========================================== -->
+  <section id="screen-appreciation" class="screen" data-index="4">
+    <div class="screen-content">
+      <div class="glass-card appreciation-card">
+        <h2 class="dancing-text">Today, I just want to say...</h2>
+        <div class="typewriter-container" id="typewriter-container">
+          <!-- Typewriter lines injected by JS -->
+        </div>
+      </div>
+      <button class="btn btn-primary continue-btn" id="appreciation-continue" style="display:none;">
+        There's more... ➡️
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 5 — FUNNY CARDS
+  =========================================== -->
+  <section id="screen-funny" class="screen" data-index="5">
+    <div class="screen-content">
+      <h2 class="dancing-text section-heading fade-in-up">Things I appreciate about you 😂</h2>
+      <div class="funny-grid" id="funny-grid">
+        <!-- Funny cards injected by JS -->
+      </div>
+      <button class="btn btn-primary continue-btn" id="funny-continue" style="display:none;">
+        Now for the big moment... 🎂
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 6 — BIRTHDAY REVEAL
+  =========================================== -->
+  <section id="screen-birthday" class="screen" data-index="6">
+    <div class="screen-content">
+      <h1 class="birthday-heading dancing-text" id="birthday-heading" style="display:none;"></h1>
+      <div class="birthday-subtitle" id="birthday-subtitle" style="display:none;">
+        <p>Another year older...</p>
+      </div>
+      <div class="birthday-joke" id="birthday-joke" style="display:none;">
+        <p>...but somehow still just as crazy. 😂</p>
+      </div>
+      <div class="birthday-hope" id="birthday-hope" style="display:none;">
+        <p class="hope-intro">I hope this year brings you...</p>
+      </div>
+      <div class="wishes-container" id="wishes-container">
+        <!-- Wishes injected by JS -->
+      </div>
+      <button class="btn btn-primary continue-btn" id="birthday-continue" style="display:none;">
+        I wrote something for you... ➡️
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 7 — PERSONAL MESSAGE
+  =========================================== -->
+  <section id="screen-personal" class="screen" data-index="7">
+    <div class="screen-content">
+      <div class="glass-card personal-card">
+        <h2 class="dancing-text">A little message from me... 💌</h2>
+        <div class="personal-message" id="personal-message-text">
+          <!-- Message injected by JS -->
+        </div>
+        <p class="message-sign" id="message-sign"></p>
+      </div>
+      <button class="btn btn-primary continue-btn fade-in-up" id="personal-continue">
+        Almost done... ➡️
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 8 — FINAL FRIENDSHIP MESSAGE
+  =========================================== -->
+  <section id="screen-final" class="screen" data-index="8">
+    <div class="screen-content cinematic">
+      <h1 class="final-heading dancing-text" id="final-heading" style="display:none;"></h1>
+      <div class="final-messages" id="final-messages-container">
+        <!-- Final messages appear one by one -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SCREEN 9 — END / REPLAY
+  =========================================== -->
+  <section id="screen-end" class="screen" data-index="9">
+    <div class="screen-content end-content">
+      <div class="end-badge">
+        <span class="end-emoji">🫂💜</span>
+      </div>
+      <h2 class="dancing-text end-heading fade-in-up">
+        Best Friends. Crazy Memories. Forever Grateful. 🫂💜
+      </h2>
+      <p class="end-subtext fade-in-up delay-1" id="end-birthday-text"></p>
+      <p class="end-credits fade-in-up delay-2" id="end-credits"></p>
+      <button class="btn btn-primary replay-btn fade-in-up delay-3" id="replay-btn">
+        Replay Our Memories 🔄
+      </button>
+    </div>
+  </section>
+
+  <!-- ========== AUDIO ELEMENT ========== -->
+  <audio id="bg-music" loop preload="auto"></audio>
+
+  <!-- Scripts -->
+  <script src="script.js?v=6"></script>
+</body>
+</html>
